@@ -24,6 +24,8 @@ return RectorConfig::configure()
     ->withImportNames(importShortClasses: false, removeUnusedImports: true)
     ->withAttributesSets()
     ->withRootFiles()
+    ->withBootstrapFiles([__DIR__.'/vendor/larastan/larastan/bootstrap.php'])
+    ->withPHPStanConfigs([__DIR__.'/phpstan.neon'])
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
