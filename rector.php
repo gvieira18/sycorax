@@ -16,6 +16,7 @@ return RectorConfig::configure()
         __DIR__.'/database',
         __DIR__.'/routes',
         __DIR__.'/public',
+        __DIR__.'/tests',
     ])
     ->withCache(
         cacheDirectory: __DIR__.'/.rector.cache',
