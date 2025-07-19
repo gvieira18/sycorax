@@ -8,11 +8,12 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "laravel/framework": "^12.20",
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^2.0.5",
         "fakerphp/faker": "^1.24.1",
         "laravel/pail": "^1.2.3",
         "laravel/pint": "^1.24",
@@ -20,7 +21,8 @@
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.8.2",
         "pestphp/pest": "^3.8.2",
-        "pestphp/pest-plugin-laravel": "^3.2"
+        "pestphp/pest-plugin-laravel": "^3.2",
+        "rector/rector": "^2.1.2"
     },
     "autoload": {
         "psr-4": {
@@ -56,7 +58,10 @@
         ],
         "pint": "vendor/bin/pint --parallel",
         "test:pint": "vendor/bin/pint --test --parallel",
+        "rector": "vendor/bin/rector",
+        "test:rector": "vendor/bin/rector --dry-run",
         "check": [
+            "@test:rector",
             "@test:pint"
         ],
         "test": [
