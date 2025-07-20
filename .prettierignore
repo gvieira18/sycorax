@@ -6,3 +6,4 @@ public/
 .git
 package-lock.json
 composer.lock
+storage/
