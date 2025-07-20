@@ -25,7 +25,7 @@
         "*.{json,yml,md,css}": [
             "prettier --write"
         ],
-        "*/*.php": [
+        "*.php": [
             "vendor/bin/pint"
         ]
     }

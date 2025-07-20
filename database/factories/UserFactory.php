@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
  */
 final class UserFactory extends Factory
 {
+    protected $model = User::class;
+
     /**
      * The current password being used by the factory.
      */
@@ -38,10 +40,21 @@ final class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
+    public function unverified(): self
     {
         return $this->state(fn (array $attributes): array => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Create a self-contained admin
+     */
+    public function admin(): self
+    {
+        return $this->state(fn (array $attributes): array => [
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
         ]);
     }
 }
