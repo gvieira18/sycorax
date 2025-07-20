@@ -18,33 +18,33 @@ tasks:
     desc: Run Pint code style fixer
     cmds:
       - export XDEBUG_MODE=off
-      - "{{ .ROOT_DIR }}/vendor/bin/pint --parallel"
+      - '{{ .ROOT_DIR }}/vendor/bin/pint --parallel'
       - unset XDEBUG_MODE
 
   test-pint:
     desc: Run Pint code style fixer in test mode
     cmds:
-      - "{{ .ROOT_DIR }}/vendor/bin/pint --parallel --test"
+      - '{{ .ROOT_DIR }}/vendor/bin/pint --parallel --test'
 
   rector:
     desc: Run Rector
     cmds:
-      - "{{ .ROOT_DIR }}/vendor/bin/rector process"
+      - '{{ .ROOT_DIR }}/vendor/bin/rector process'
 
   test-rector:
     desc: Run Rector in test mode
     cmds:
-      - "{{ .ROOT_DIR }}/vendor/bin/rector process --dry-run"
+      - '{{ .ROOT_DIR }}/vendor/bin/rector process --dry-run'
 
   phpstan:
     desc: Run PHPStan
     cmds:
-      - "{{ .ROOT_DIR }}/vendor/bin/phpstan analyse --ansi"
+      - '{{ .ROOT_DIR }}/vendor/bin/phpstan analyse --ansi'
 
   test-phpstan:
     desc: Run PHPStan in test mode
     cmds:
-      - "{{ .ROOT_DIR }}/vendor/bin/phpstan analyse --ansi"
+      - '{{ .ROOT_DIR }}/vendor/bin/phpstan analyse --ansi'
 
   format:
     desc: Run Pint and Rector and try to fixes the source code
@@ -64,19 +64,19 @@ tasks:
   test:
     desc: Run all tests
     aliases: [t]
-    cmd: "{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact"
+    cmd: '{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact'
 
   test-unit:
     desc: Run unit tests
     aliases: [tu]
-    cmd: "{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact --group=unit"
+    cmd: '{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact --group=unit'
 
   test-feature:
     desc: Run feature tests
     aliases: [tf]
-    cmd: "{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact --group=feature"
+    cmd: '{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact --group=feature'
 
   migrate-fresh:
     desc: Run migrations and seed the database
     aliases: [mf]
-    cmd: "php artisan migrate:fresh --seed"
+    cmd: 'php artisan migrate:fresh --seed'
