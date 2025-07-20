@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Shared\Pages;
 
-use Filament\Pages\Auth\Login;
+use Filament\Auth\Pages\Login;
 
 final class LoginPage extends Login
 {
