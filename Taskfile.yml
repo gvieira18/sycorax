@@ -48,6 +48,7 @@ tasks:
 
   format:
     desc: Run Pint and Rector and try to fixes the source code
+    aliases: [f]
     cmds:
       - task: rector
       - task: pint
