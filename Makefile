@@ -53,3 +53,11 @@ test-feature: ## Run feature tests
 .PHONY: migrate-fresh
 migrate-fresh: ## Run migrations and seed the database
 	@php artisan migrate:fresh --seed
+
+.PHONY: env-up
+env-up: ## Start the development environment
+	@docker compose --file docker-compose.env.yml up --detach
+
+.PHONY: env-down
+env-down: ## Start the development environment
+	@docker compose --file docker-compose.env.yml down --rmi local --volumes
