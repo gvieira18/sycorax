@@ -90,4 +90,4 @@ tasks:
   env-down:
     desc: Stop the development environment
     aliases: [ed]
-    cmd: 'docker compose --file docker-compose.env.yml down --rmi local --volumes'
+    cmd: 'docker compose --file docker-compose.env.yml down --rmi all --volumes'
