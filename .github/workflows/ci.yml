@@ -79,7 +79,7 @@ jobs:
         env:
           XDEBUG_MODE: off
         run: |
-          vendor/bin/pint --test --parallel test:pint -- --format=checkstyle | cs2pr
+          vendor/bin/pint --test --parallel --format=checkstyle | cs2pr
 
   rector:
     name: Perform Rector Check
