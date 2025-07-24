@@ -67,7 +67,7 @@ jobs:
           extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: ${{ env.PHP_INI_PROPERTIES }}
           coverage: xdebug
-          tools: composer:v2
+          tools: composer:v2, cs2pr
 
       - name: Install composer dependencies
         uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # v3.1.1
@@ -79,7 +79,7 @@ jobs:
         env:
           XDEBUG_MODE: off
         run: |
-          composer run-script test:pint
+          vendor/bin/pint --test --parallel test:pint -- --format=checkstyle | cs2pr
 
   rector:
     name: Perform Rector Check
@@ -107,7 +107,7 @@ jobs:
 
       - name: Run Rector
         run: |
-          composer run-script test:rector
+          vendor/bin/rector --dry-run --output-format=github
 
   phpstan:
     name: Perform Phpstan Check
@@ -135,4 +135,4 @@ jobs:
 
       - name: Run Phpstan
         run: |
-          composer run-script test:phpstan
+          vendor/bin/phpstan analyse --ansi --error-format=github
