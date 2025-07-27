@@ -91,3 +91,8 @@ tasks:
     desc: Stop the development environment
     aliases: [ed]
     cmd: 'docker compose --file docker-compose.env.yml down --rmi all --volumes'
+
+  dev:
+    desc: Start the server
+    aliases: [d]
+    cmd: 'composer run-script dev'

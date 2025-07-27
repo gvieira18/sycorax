@@ -61,3 +61,7 @@ env-up: ## Start the development environment
 .PHONY: env-down
 env-down: ## Start the development environment
 	@docker compose --file docker-compose.env.yml down --rmi all --volumes
+
+.PHONY: dev
+dev: ## Start the server
+	@composer run-script dev
