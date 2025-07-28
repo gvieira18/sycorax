@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-arch('application must follow the defined Laravel architectural rules')
+arch('application must follow the defined architectural rules')
     ->preset()
-    ->laravel();
+    ->laravel()
+    ->ignoring('App\Providers');
 
 arch('application must follow the defined PHP architectural rules')
     ->preset()

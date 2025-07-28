@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-$providers = [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\AdminPanelServiceProvider::class,
+use App\Providers\AppServiceProvider;
+use App\Providers\Filament\AdminPanelProvider;
+
+return [
+    AppServiceProvider::class,
+    AdminPanelProvider::class,
 ];
-
-if (class_exists(Laravel\Telescope\TelescopeServiceProvider::class)) {
-    $providers[] = App\Providers\TelescopeServiceProvider::class;
-}
-
-return $providers;
