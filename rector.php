@@ -7,6 +7,8 @@ use Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector;
 use Rector\Config\RectorConfig;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
+use RectorLaravel\Rector\Class_\AnonymousMigrationsRector;
+use RectorLaravel\Rector\MethodCall\AssertStatusToAssertMethodRector;
 use RectorLaravel\Rector\MethodCall\ValidationRuleArrayStringValueToArrayRector;
 use RectorLaravel\Set\LaravelSetList;
 
@@ -44,6 +46,8 @@ return RectorConfig::configure()
     ->withPhpSets()
     ->withRules([
         ValidationRuleArrayStringValueToArrayRector::class,
+        AnonymousMigrationsRector::class,
+        AssertStatusToAssertMethodRector::class,
     ])
     ->withSets([
         LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
