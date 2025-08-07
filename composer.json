@@ -86,6 +86,10 @@
         "test": [
             "@php artisan config:clear --ansi",
             "vendor/bin/pest --parallel --compact"
+        ],
+        "bump:minor": [
+            "composer update",
+            "composer bump"
         ]
     },
     "extra": {
