@@ -11,13 +11,13 @@
         "php": "^8.4",
         "filament/filament": "^4.0.0-beta23",
         "filament/spatie-laravel-media-library-plugin": "^4.0.0-beta23",
-        "laravel/framework": "^12.22.0",
+        "laravel/framework": "^12.22.1",
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16.0",
         "barryvdh/laravel-ide-helper": "^3.6.0",
-        "driftingly/rector-laravel": "^2.0.5",
+        "driftingly/rector-laravel": "^2.0.6",
         "fakerphp/faker": "^1.24.1",
         "larastan/larastan": "^3.6.0",
         "laravel/pail": "^1.2.3",
