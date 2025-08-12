@@ -2,5 +2,7 @@
     "singleQuote": true,
     "trailingComma": "all",
     "endOfLine": "lf",
-    "printWidth": 120
+    "printWidth": 120,
+    "semi": true,
+    "plugins": ["prettier-plugin-blade", "prettier-plugin-tailwindcss"]
 }
