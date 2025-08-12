@@ -9,8 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "filament/filament": "^4.0.0-beta23",
-        "filament/spatie-laravel-media-library-plugin": "^4.0.0-beta23",
+        "filament/filament": "^4.0.0",
+        "filament/spatie-laravel-media-library-plugin": "^4.0.0",
         "laravel/framework": "^12.22.1",
         "laravel/tinker": "^2.10.1"
     },
@@ -108,6 +108,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
