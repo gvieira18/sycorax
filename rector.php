@@ -7,9 +7,21 @@ use Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector;
 use Rector\Config\RectorConfig;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
+use RectorLaravel\Rector\Class_\AddExtendsAnnotationToModelFactoriesRector;
 use RectorLaravel\Rector\Class_\AnonymousMigrationsRector;
+use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
+use RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector;
+use RectorLaravel\Rector\Class_\ReplaceExpectsMethodsInTestsRector;
+use RectorLaravel\Rector\ClassMethod\AddGenericReturnTypeToRelationsRector;
+use RectorLaravel\Rector\Coalesce\ApplyDefaultInsteadOfNullCoalesceRector;
+use RectorLaravel\Rector\Empty_\EmptyToBlankAndFilledFuncRector;
+use RectorLaravel\Rector\Expr\AppEnvironmentComparisonToParameterRector;
+use RectorLaravel\Rector\FuncCall\NotFilledBlankFuncCallToBlankFilledFuncCallRector;
 use RectorLaravel\Rector\MethodCall\AssertStatusToAssertMethodRector;
+use RectorLaravel\Rector\MethodCall\RefactorBlueprintGeometryColumnsRector;
 use RectorLaravel\Rector\MethodCall\ValidationRuleArrayStringValueToArrayRector;
+use RectorLaravel\Rector\PropertyFetch\ReplaceFakerInstanceWithHelperRector;
+use RectorLaravel\Rector\StaticCall\DispatchToHelperFunctionsRector;
 use RectorLaravel\Set\LaravelSetList;
 
 return RectorConfig::configure()
@@ -48,6 +60,18 @@ return RectorConfig::configure()
         ValidationRuleArrayStringValueToArrayRector::class,
         AnonymousMigrationsRector::class,
         AssertStatusToAssertMethodRector::class,
+        AddExtendsAnnotationToModelFactoriesRector::class,
+        AddGenericReturnTypeToRelationsRector::class,
+        AppEnvironmentComparisonToParameterRector::class,
+        ApplyDefaultInsteadOfNullCoalesceRector::class,
+        DispatchToHelperFunctionsRector::class,
+        EmptyToBlankAndFilledFuncRector::class,
+        ModelCastsPropertyToCastsMethodRector::class,
+        NotFilledBlankFuncCallToBlankFilledFuncCallRector::class,
+        RefactorBlueprintGeometryColumnsRector::class,
+        RemoveModelPropertyFromFactoriesRector::class,
+        ReplaceExpectsMethodsInTestsRector::class,
+        ReplaceFakerInstanceWithHelperRector::class,
     ])
     ->withSets([
         LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
