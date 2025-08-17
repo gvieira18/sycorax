@@ -6,16 +6,20 @@ namespace App\Models;
 
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-final class User extends Authenticatable implements FilamentUser
+final class User extends Authenticatable implements FilamentUser, HasAvatar, HasMedia
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory;
 
+    use InteractsWithMedia;
     use Notifiable;
 
     /**
@@ -42,6 +46,13 @@ final class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        $avatar = $this->getFirstMedia('profile-pictures');
+
+        return $avatar?->getUrl();
     }
 
     /**
