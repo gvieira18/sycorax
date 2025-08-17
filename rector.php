@@ -10,7 +10,6 @@ use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRecto
 use RectorLaravel\Rector\Class_\AddExtendsAnnotationToModelFactoriesRector;
 use RectorLaravel\Rector\Class_\AnonymousMigrationsRector;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
-use RectorLaravel\Rector\Class_\RemoveModelPropertyFromFactoriesRector;
 use RectorLaravel\Rector\Class_\ReplaceExpectsMethodsInTestsRector;
 use RectorLaravel\Rector\ClassMethod\AddGenericReturnTypeToRelationsRector;
 use RectorLaravel\Rector\Coalesce\ApplyDefaultInsteadOfNullCoalesceRector;
@@ -39,7 +38,6 @@ return RectorConfig::configure()
         cacheClass: FileCacheStorage::class,
     )
     ->withImportNames(importShortClasses: false, removeUnusedImports: true)
-    ->withAttributesSets()
     ->withRootFiles()
     ->withBootstrapFiles([__DIR__.'/vendor/larastan/larastan/bootstrap.php'])
     ->withPHPStanConfigs([__DIR__.'/phpstan.neon'])
@@ -55,7 +53,7 @@ return RectorConfig::configure()
         carbon: true,
         rectorPreset: true,
     )
-    ->withPhpSets()
+    ->withPhpSets(php84: true)
     ->withRules([
         ValidationRuleArrayStringValueToArrayRector::class,
         AnonymousMigrationsRector::class,
@@ -69,7 +67,6 @@ return RectorConfig::configure()
         ModelCastsPropertyToCastsMethodRector::class,
         NotFilledBlankFuncCallToBlankFilledFuncCallRector::class,
         RefactorBlueprintGeometryColumnsRector::class,
-        RemoveModelPropertyFromFactoriesRector::class,
         ReplaceExpectsMethodsInTestsRector::class,
         ReplaceFakerInstanceWithHelperRector::class,
     ])
