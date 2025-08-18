@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.15.0
 
-FROM axllent/mailpit:v1.27.4@sha256:df6c2541907e1be6fac21f509927cf6ed771617a1f4b361ef66d97bd05593d2d
+FROM axllent/mailpit:v1.27.5@sha256:5921fa3c3f0a34eb000a89ac8279d1f9d711e486a9a8fd094f7db5a1920256ab
 
 ENV TZ=America/Sao_Paulo
 
