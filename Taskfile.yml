@@ -77,6 +77,11 @@ tasks:
     aliases: [tf]
     cmd: '{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact --group=feature'
 
+  test-browser:
+    desc: Run browser tests
+    aliases: [tb]
+    cmd: '{{ .ROOT_DIR }}/vendor/bin/pest --parallel --compact --group=browser'
+
   migrate-fresh:
     desc: Run migrations and seed the database
     aliases: [mf]

@@ -50,6 +50,10 @@ test-unit: ## Run unit tests
 test-feature: ## Run feature tests
 	@$(CURDIR)/vendor/bin/pest --parallel --compact --group=feature
 
+.PHONY: test-browser
+test-browser: ## Run browser tests
+	@$(CURDIR)/vendor/bin/pest --parallel --compact --group=browser
+
 .PHONY: migrate-fresh
 migrate-fresh: ## Run migrations and seed the database
 	@php artisan migrate:fresh --seed
