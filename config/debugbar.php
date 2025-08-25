@@ -16,7 +16,7 @@ return [
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', null),
+    'enabled' => env('DEBUGBAR_ENABLED', false),
     'hide_empty_tabs' => true, // Hide tabs until they have content
     'except' => [
         'telescope*',
@@ -206,7 +206,7 @@ return [
         ],
         'messages' => [
             'trace' => true,          // Trace the origin of the debug message
-            'capture_dumps' => false, // Capture laravel `dump();` as message
+            'capture_dumps' => true,  // Capture laravel `dump();` as message
         ],
         'memory' => [
             'reset_peak' => false,     // run memory_reset_peak_usage before collecting

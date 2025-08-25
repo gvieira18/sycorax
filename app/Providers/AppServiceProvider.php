@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -20,9 +21,8 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if (app()->isLocal() && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
-            $this->app->register(TelescopeServiceProvider::class);
-        }
+        $this->registerTelescope();
+        $this->registerDebugbar();
     }
 
     /**
@@ -85,5 +85,25 @@ final class AppServiceProvider extends ServiceProvider
     private function configureHttp(): void
     {
         Http::preventStrayRequests();
+    }
+
+    private function registerTelescope(): void
+    {
+        if (app()->isLocal() && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
+            $this->app->register(TelescopeServiceProvider::class);
+        }
+    }
+
+    private function registerDebugbar(): void
+    {
+        if (
+            app()->isLocal()
+            && app()->hasDebugModeEnabled()
+            && class_exists(\Barryvdh\Debugbar\ServiceProvider::class)
+            && config('debugbar.enabled')
+        ) {
+            Log::debug('Registering Debugbar Service Provider');
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
     }
 }

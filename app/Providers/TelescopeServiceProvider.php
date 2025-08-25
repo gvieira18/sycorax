@@ -16,7 +16,10 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     public function register(): void
     {
-        $canRegister = $this->app->hasDebugModeEnabled() && $this->app->isLocal() && $this->hasProviderToRegister();
+        $canRegister = $this->app->hasDebugModeEnabled()
+            && $this->app->isLocal()
+            && $this->hasProviderToRegister()
+            && $this->hasEnvEnabled();
 
         if (! $canRegister) {
             return;
@@ -44,6 +47,11 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         Gate::define('viewTelescope', fn (User $user): bool => in_array($user->email, [
             //
         ]));
+    }
+
+    private function hasEnvEnabled(): bool
+    {
+        return config('telescope.enabled');
     }
 
     /**
