@@ -7,6 +7,7 @@ use Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector;
 use Rector\Config\RectorConfig;
 use Rector\EarlyReturn\Rector\If_\ChangeOrIfContinueToMultiContinueRector;
 use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
+use Rector\TypeDeclaration\Rector\ArrowFunction\AddArrowFunctionReturnTypeRector;
 use RectorLaravel\Rector\Class_\AddExtendsAnnotationToModelFactoriesRector;
 use RectorLaravel\Rector\Class_\AnonymousMigrationsRector;
 use RectorLaravel\Rector\Class_\ModelCastsPropertyToCastsMethodRector;
@@ -83,4 +84,5 @@ return RectorConfig::configure()
         AddOverrideAttributeToOverriddenMethodsRector::class,
         ChangeOrIfContinueToMultiContinueRector::class,
         PostIncDecToPreIncDecRector::class,
+        AddArrowFunctionReturnTypeRector::class,
     ]);
