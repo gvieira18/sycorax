@@ -11,7 +11,7 @@
         "php": "^8.4",
         "filament/filament": "^4.0.4",
         "filament/spatie-laravel-media-library-plugin": "^4.0.4",
-        "laravel/framework": "^12.26.2",
+        "laravel/framework": "^12.26.3",
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
