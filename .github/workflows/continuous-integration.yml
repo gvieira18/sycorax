@@ -179,6 +179,13 @@ jobs:
           npm run build
           npx playwright install --with-deps
 
+      - name: Setup project
+        run: |
+          php -r "file_exists('.env') || copy('.env.testing', '.env');"
+          php artisan key:generate --ansi
+          php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+          php artisan migrate --graceful --ansi
+
       - name: Run Tests
         env:
           XDEBUG_MODE: coverage
