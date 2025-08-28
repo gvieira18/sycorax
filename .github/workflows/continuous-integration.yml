@@ -177,6 +177,7 @@ jobs:
         run: |
           npm ci
           npm run build
+          npx playwright install --with-deps
 
       - name: Run Tests
         env:
