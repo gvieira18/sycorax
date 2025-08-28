@@ -139,7 +139,7 @@ jobs:
           vendor/bin/phpstan analyse --ansi --error-format=github
 
   pest:
-    name: Run Tests with Pest
+    name: Perform Pest Tests
     runs-on: ubuntu-latest
     needs:
       - setup
