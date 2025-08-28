@@ -181,11 +181,8 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Setup project
+      - name: Perform database migrations
         run: |
-          php -r "file_exists('.env') || copy('.env.testing', '.env');"
-          php artisan key:generate --ansi
-          php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
           php artisan migrate --graceful --ansi
 
       - name: Run Tests
