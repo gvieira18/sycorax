@@ -183,7 +183,7 @@ jobs:
 
       - name: Perform database migrations
         run: |
-          php artisan migrate --graceful --ansi
+          php artisan migrate --graceful --ansi --env=testing
 
       - name: Run Tests
         env:
