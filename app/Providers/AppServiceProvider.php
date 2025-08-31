@@ -96,13 +96,12 @@ final class AppServiceProvider extends ServiceProvider
 
     private function registerDebugbar(): void
     {
-        if (
-            app()->isLocal()
+        if (app()->isLocal()
             && app()->hasDebugModeEnabled()
             && class_exists(\Barryvdh\Debugbar\ServiceProvider::class)
             && config('debugbar.enabled')
         ) {
-            Log::debug('Registering Debugbar Service Provider');
+            Log::notice('Registering Debugbar Service Provider');
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
     }

@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Laravel\Telescope\Telescope;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
 
@@ -20,6 +21,8 @@ final class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
             && $this->app->isLocal()
             && $this->hasProviderToRegister()
             && $this->hasEnvEnabled();
+
+        Log::notice('Registering Telescope Service Provider');
 
         if (! $canRegister) {
             return;
