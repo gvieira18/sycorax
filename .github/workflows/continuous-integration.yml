@@ -24,6 +24,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       combined-key: ${{ steps.prepare-env.outputs.combined-key }}
+      # https://github.com/actions/runner/issues/2372
+      PHP_VERSION: ${{ env.PHP_VERSION }}
+      PHP_EXTENSIONS: ${{ env.PHP_EXTENSIONS }}
+      PHP_INI_PROPERTIES: ${{ env.PHP_INI_PROPERTIES }}
+      COMPOSER_FLAGS: ${{ env.COMPOSER_FLAGS }}
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
@@ -149,8 +154,8 @@ jobs:
         shard: [1, 2, 3, 4]
     with:
       CACHE_KEY: ${{ needs.setup.outputs.combined-key }}
-      COMPOSER_FLAGS: ${{ env.COMPOSER_FLAGS }}
-      PHP_EXTENSIONS: ${{ env.PHP_EXTENSIONS }}
-      PHP_INI_PROPERTIES: ${{ env.PHP_INI_PROPERTIES }}
-      PHP_VERSION: ${{ env.PHP_VERSION }}
+      COMPOSER_FLAGS: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
+      PHP_EXTENSIONS: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
+      PHP_INI_PROPERTIES: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
+      PHP_VERSION: ${{ needs.setup.outputs.PHP_VERSION }}
       SHARD: ${{ matrix.shard }}
