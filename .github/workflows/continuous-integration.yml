@@ -18,13 +18,21 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       CACHE_KEY: ${{ steps.cache.outputs.key }}
-      PHP_VERSION: '8.4'
-      PHP_EXTENSIONS: 'mbstring,pdo,xml,ctype,fileinfo,json,curl,openssl,dom,zip'
-      PHP_INI_PROPERTIES: 'post_max_size=256M,upload_max_filesize=256M'
-      COMPOSER_FLAGS: '--prefer-dist --optimize-autoloader'
+      PHP_VERSION: ${{ steps.setup.outputs.PHP_VERSION }}
+      PHP_EXTENSIONS: ${{ steps.setup.outputs.PHP_EXTENSIONS }}
+      PHP_INI_PROPERTIES: ${{ steps.setup.outputs.PHP_INI_PROPERTIES }}
+      COMPOSER_FLAGS: ${{ steps.setup.outputs.COMPOSER_FLAGS }}
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
+
+      - name: Setup job outputs
+        id: setup
+        run: |
+          echo "PHP_VERSION=8.4" >> "$GITHUB_OUTPUT"
+          echo "PHP_EXTENSIONS=mbstring,pdo,xml,ctype,fileinfo,json,curl,openssl,dom,zip" >> "$GITHUB_OUTPUT"
+          echo "PHP_INI_PROPERTIES=post_max_size=256M,upload_max_filesize=256M" >> "$GITHUB_OUTPUT"
+          echo "COMPOSER_FLAGS=--prefer-dist --optimize-autoloader" >> "$GITHUB_OUTPUT"
 
       - name: Create cache key
         id: cache
@@ -38,16 +46,16 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@ec406be512d7077f68eed36e63f4d91bc006edc4 # v2.35.4
         with:
-          php-version: ${{ needs.setup.outputs.PHP_VERSION }}
-          extensions: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
-          ini-values: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
+          php-version: ${{ steps.setup.outputs.PHP_VERSION }}
+          extensions: ${{ steps.setup.outputs.PHP_EXTENSIONS }}
+          ini-values: ${{ steps.setup.outputs.PHP_INI_PROPERTIES }}
           coverage: xdebug
           tools: composer:v2
 
       - name: Install composer dependencies
         uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # v3.1.1
         with:
-          composer-options: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
+          composer-options: ${{ steps.setup.outputs.COMPOSER_FLAGS }}
           custom-cache-key: ${{ steps.cache.outputs.key }}
 
   pint:
