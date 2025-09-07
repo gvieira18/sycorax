@@ -23,7 +23,7 @@ on:
         type: string
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pest
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pest-${{ inputs.SHARD }}
   cancel-in-progress: true
 
 jobs:
