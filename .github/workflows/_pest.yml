@@ -30,9 +30,6 @@ jobs:
   run:
     name: Run
     runs-on: ubuntu-latest
-    container:
-      options: --user 1001
-      image: mcr.microsoft.com/playwright:v1.55.0-noble
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
@@ -67,6 +64,9 @@ jobs:
         run: |
           npm ci
           npm run build
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
 
       - name: Perform database migrations
         run: |
