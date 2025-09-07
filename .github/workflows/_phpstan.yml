@@ -1,4 +1,4 @@
-name: Pint
+name: Phpstan
 
 on:
   workflow_call:
@@ -20,7 +20,7 @@ on:
         type: string
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pint
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-phpstan
   cancel-in-progress: true
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
           extensions: ${{ inputs.PHP_EXTENSIONS }}
           ini-values: ${{ inputs.PHP_INI_PROPERTIES }}
           coverage: xdebug
-          tools: composer:v2, cs2pr
+          tools: composer:v2
 
       - name: Install composer dependencies
         uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # v3.1.1
@@ -46,8 +46,6 @@ jobs:
           composer-options: ${{ inputs.COMPOSER_FLAGS }}
           custom-cache-key: ${{ inputs.CACHE_KEY }}
 
-      - name: Run Pint
-        env:
-          XDEBUG_MODE: off
+      - name: Run Phpstan
         run: |
-          vendor/bin/pint --test --parallel --format=checkstyle | cs2pr
+          vendor/bin/phpstan analyse --ansi --error-format=github
