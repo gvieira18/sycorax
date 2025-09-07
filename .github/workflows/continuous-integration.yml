@@ -139,10 +139,14 @@ jobs:
           vendor/bin/phpstan analyse --ansi --error-format=github
 
   pest:
-    name: Perform Pest Tests
+    name: Perform Pest Tests (Shard ${{ matrix.shard }})
     runs-on: ubuntu-latest
     needs:
       - setup
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
@@ -185,8 +189,8 @@ jobs:
         run: |
           php artisan migrate --graceful --ansi --env=testing
 
-      - name: Run Tests
+      - name: Run Tests (Shard ${{ matrix.shard }}/4)
         env:
           XDEBUG_MODE: coverage
         run: |
-          vendor/bin/pest --ci --parallel
+          vendor/bin/pest --ci --parallel --shard=${{ matrix.shard }}/4
