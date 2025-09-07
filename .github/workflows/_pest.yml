@@ -15,21 +15,21 @@ on:
       COMPOSER_FLAGS:
         required: true
         type: string
-      SHARD:
-        required: true
-        type: number
       CACHE_KEY:
         required: true
         type: string
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pest-${{ inputs.SHARD }}
-  cancel-in-progress: true
-
 jobs:
   run:
-    name: Run
+    name: Run (Shard ${{ matrix.shard }})
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pest-${{ matrix.shard }}
+      cancel-in-progress: true
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
@@ -72,8 +72,8 @@ jobs:
         run: |
           php artisan migrate --graceful --ansi --env=testing
 
-      - name: Run Tests (Shard ${{ inputs.SHARD }}/4)
+      - name: Run Tests (Shard ${{ matrix.shard }}/4)
         env:
           XDEBUG_MODE: coverage
         run: |
-          vendor/bin/pest --ci --parallel --shard=${{ inputs.SHARD }}/4
+          vendor/bin/pest --ci --parallel --shard=${{ matrix.shard }}/4

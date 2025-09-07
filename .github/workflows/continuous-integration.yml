@@ -12,50 +12,43 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-env:
-  PHP_VERSION: 8.4
-  PHP_EXTENSIONS: mbstring,pdo,xml,ctype,fileinfo,json,curl,openssl,dom,zip
-  PHP_INI_PROPERTIES: post_max_size=256M,upload_max_filesize=256M
-  COMPOSER_FLAGS: --prefer-dist --optimize-autoloader
-
 jobs:
   setup:
     name: Setup PHP
     runs-on: ubuntu-latest
     outputs:
-      combined-key: ${{ steps.prepare-env.outputs.combined-key }}
-      # https://github.com/actions/runner/issues/2372
-      PHP_VERSION: ${{ env.PHP_VERSION }}
-      PHP_EXTENSIONS: ${{ env.PHP_EXTENSIONS }}
-      PHP_INI_PROPERTIES: ${{ env.PHP_INI_PROPERTIES }}
-      COMPOSER_FLAGS: ${{ env.COMPOSER_FLAGS }}
+      CACHE_KEY: ${{ steps.cache.outputs.key }}
+      PHP_VERSION: '8.4'
+      PHP_EXTENSIONS: 'mbstring,pdo,xml,ctype,fileinfo,json,curl,openssl,dom,zip'
+      PHP_INI_PROPERTIES: 'post_max_size=256M,upload_max_filesize=256M'
+      COMPOSER_FLAGS: '--prefer-dist --optimize-autoloader'
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
 
-      - name: Prepare environment and composer data
-        id: prepare-env
+      - name: Create cache key
+        id: cache
         run: |
           composer_hash=${{ hashFiles('**/composer.lock') }}
           os_lower=$(echo ${{ runner.os }} | tr '[:upper:]' '[:lower:]')
           arch_lower=$(echo ${{ runner.arch }} | tr '[:upper:]' '[:lower:]')
           combined_key="${os_lower}-${arch_lower}-composer-${composer_hash}"
-          echo "combined-key=${combined_key}" >> "$GITHUB_OUTPUT"
+          echo "key=${combined_key}" >> "$GITHUB_OUTPUT"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@ec406be512d7077f68eed36e63f4d91bc006edc4 # v2.35.4
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-          ini-values: ${{ env.PHP_INI_PROPERTIES }}
+          php-version: ${{ needs.setup.outputs.PHP_VERSION }}
+          extensions: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
+          ini-values: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
           coverage: xdebug
           tools: composer:v2
 
       - name: Install composer dependencies
         uses: ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520 # v3.1.1
         with:
-          composer-options: ${{ env.COMPOSER_FLAGS }}
-          custom-cache-key: ${{ steps.prepare-env.outputs.combined-key }}
+          composer-options: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
+          custom-cache-key: ${{ steps.cache.outputs.key }}
 
   pint:
     name: Perform Pint format
@@ -63,7 +56,7 @@ jobs:
       - setup
     uses: ./.github/workflows/_pint.yml
     with:
-      CACHE_KEY: ${{ needs.setup.outputs.combined-key }}
+      CACHE_KEY: ${{ needs.setup.outputs.CACHE_KEY }}
       COMPOSER_FLAGS: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
       PHP_EXTENSIONS: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
       PHP_INI_PROPERTIES: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
@@ -75,7 +68,7 @@ jobs:
       - setup
     uses: ./.github/workflows/_rector.yml
     with:
-      CACHE_KEY: ${{ needs.setup.outputs.combined-key }}
+      CACHE_KEY: ${{ needs.setup.outputs.CACHE_KEY }}
       COMPOSER_FLAGS: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
       PHP_EXTENSIONS: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
       PHP_INI_PROPERTIES: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
@@ -87,25 +80,20 @@ jobs:
       - setup
     uses: ./.github/workflows/_phpstan.yml
     with:
-      CACHE_KEY: ${{ needs.setup.outputs.combined-key }}
+      CACHE_KEY: ${{ needs.setup.outputs.CACHE_KEY }}
       COMPOSER_FLAGS: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
       PHP_EXTENSIONS: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
       PHP_INI_PROPERTIES: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
       PHP_VERSION: ${{ needs.setup.outputs.PHP_VERSION }}
 
   pest:
-    name: Perform Pest Tests (Shard ${{ matrix.shard }})
+    name: Perform Pest Tests
     needs:
       - setup
     uses: ./.github/workflows/_pest.yml
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1, 2, 3, 4]
     with:
-      CACHE_KEY: ${{ needs.setup.outputs.combined-key }}
+      CACHE_KEY: ${{ needs.setup.outputs.CACHE_KEY }}
       COMPOSER_FLAGS: ${{ needs.setup.outputs.COMPOSER_FLAGS }}
       PHP_EXTENSIONS: ${{ needs.setup.outputs.PHP_EXTENSIONS }}
       PHP_INI_PROPERTIES: ${{ needs.setup.outputs.PHP_INI_PROPERTIES }}
       PHP_VERSION: ${{ needs.setup.outputs.PHP_VERSION }}
-      SHARD: ${{ matrix.shard }}
