@@ -21,15 +21,11 @@ on:
 
 jobs:
   run:
-    name: Run (Shard ${{ matrix.shard }})
+    name: Run
     runs-on: ubuntu-latest
     concurrency:
-      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pest-${{ matrix.shard }}
+      group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-pest
       cancel-in-progress: true
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1, 2, 3, 4]
     steps:
       - name: Checkout code
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
@@ -66,14 +62,15 @@ jobs:
           npm run build
 
       - name: Install Playwright Browsers
+        # TODO: Migrate to playwright docker when pest supports it - pestphp/pest-plugin-browser#131
         run: npx playwright install --with-deps
 
       - name: Perform database migrations
         run: |
           php artisan migrate --graceful --ansi --env=testing
 
-      - name: Run Tests (Shard ${{ matrix.shard }}/4)
+      - name: Run Tests
         env:
           XDEBUG_MODE: coverage
         run: |
-          vendor/bin/pest --ci --parallel --shard=${{ matrix.shard }}/4
+          vendor/bin/pest --ci --parallel
