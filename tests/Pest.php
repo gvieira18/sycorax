@@ -26,6 +26,8 @@ pest()->extend(TestCase::class)
 
 pest()->browser()->inFirefox();
 
+pest()->printer()->compact();
+
 /*
 |--------------------------------------------------------------------------
 | Expectations
