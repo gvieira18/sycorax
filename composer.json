@@ -9,8 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "filament/filament": "^4.0.18",
-        "filament/spatie-laravel-media-library-plugin": "^4.0.18",
+        "filament/filament": "^4.0.19",
+        "filament/spatie-laravel-media-library-plugin": "^4.0.19",
         "laravel/framework": "^12.30.1",
         "laravel/tinker": "^2.10.1"
     },
