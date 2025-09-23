@@ -24,7 +24,7 @@ jobs:
     name: Normal Tests
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    if: false # Temporarily disable tests until the issues are fixed - see pestphp/pest-plugin-browser#1489
+    if: false # Temporarily disable tests until the issues are fixed - see pestphp/pest#1489
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-normal-tests
       cancel-in-progress: true
@@ -62,7 +62,7 @@ jobs:
     name: Browser Tests
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    if: false # Temporarily disable tests until the issues are fixed - see pestphp/pest-plugin-browser#1489
+    if: false # Temporarily disable tests until the issues are fixed - see pestphp/pest#1489
     concurrency:
       group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}-browser-tests
       cancel-in-progress: true
