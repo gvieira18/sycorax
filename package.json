@@ -12,7 +12,8 @@
         "dev": "vite",
         "format": "npx prettier --write \"**/*.{js,ts,json,yml,md,css,blade.php}\"",
         "prepare": "npx -y husky",
-        "outdated": "npx npm-check-updates"
+        "outdated": "npx npm-check-updates",
+        "postinstall": "npx playwright install --with-deps"
     },
     "devDependencies": {
         "@tailwindcss/vite": "4.1.13",
@@ -20,7 +21,7 @@
         "concurrently": "9.2.1",
         "husky": "9.1.7",
         "laravel-vite-plugin": "2.0.1",
-        "lint-staged": "16.2.0",
+        "lint-staged": "16.2.1",
         "npm-check-updates": "18.3.0",
         "playwright": "1.55.1",
         "prettier": "3.6.2",
