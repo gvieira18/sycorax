@@ -67,10 +67,13 @@
             "@php artisan ide-helper:meta -q"
         ],
         "setup": [
-            "@php composer run post-root-package-install",
-            "@php composer run post-create-project-cmd",
+            "composer install",
+            "npm install",
+            "composer run-script post-root-package-install",
+            "composer run-script post-create-project-cmd",
+            "@php artisan key:generate --ansi",
             "@php artisan storage:link --ansi",
-            "@php composer run ide-helper"
+            "composer run-script ide-helper"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

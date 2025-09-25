@@ -69,3 +69,13 @@ env-down: ## Start the development environment
 .PHONY: dev
 dev: ## Start the server
 	@composer run-script dev
+
+.PHONY: setup
+setup: ## Setup the project
+	@composer install
+	@npm install
+	@composer run-script post-root-package-install
+	@composer run-script post-create-project-cmd
+	@php artisan key:generate --ansi
+	@php artisan storage:link --ansi
+	@composer run-script ide-helper
