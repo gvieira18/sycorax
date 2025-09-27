@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.15.0
 
-FROM postgres:17-alpine3.22@sha256:d5f196a551b5cef1c70853c6dd588f456d16ca4ea733e3f31c75bc1ae2f65f3f
+FROM postgres:18-alpine3.22@sha256:aa7c4a8932f5bafe14700a789339d102251d0f7d53503a201247b5f5990da5e2
 
 ENV TZ=America/Sao_Paulo
 
