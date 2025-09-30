@@ -28,7 +28,7 @@ services:
     build:
       dockerfile: docker/redis.Dockerfile
       context: .
-    image: redis.local:7
+    image: redis.local:8
     container_name: sycorax-redis
     restart: no
     hostname: dev

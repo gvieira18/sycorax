@@ -60,11 +60,11 @@ migrate-fresh: ## Run migrations and seed the database
 
 .PHONY: env-up
 env-up: ## Start the development environment
-	@docker compose --file docker-compose.env.yml up --detach
+	@docker compose --file docker-compose.yml up --detach
 
 .PHONY: env-down
 env-down: ## Start the development environment
-	@docker compose --file docker-compose.env.yml down --rmi all --volumes
+	@docker compose --file docker-compose.yml down --rmi all --volumes
 
 .PHONY: dev
 dev: ## Start the server

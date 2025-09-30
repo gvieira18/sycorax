@@ -90,12 +90,12 @@ tasks:
   env-up:
     desc: Start the development environment
     aliases: [eu]
-    cmd: 'docker compose --file docker-compose.env.yml up --detach'
+    cmd: 'docker compose --file docker-compose.yml up --detach'
 
   env-down:
     desc: Stop the development environment
     aliases: [ed]
-    cmd: 'docker compose --file docker-compose.env.yml down --rmi all --volumes'
+    cmd: 'docker compose --file docker-compose.yml down --rmi all --volumes'
 
   dev:
     desc: Start the server
